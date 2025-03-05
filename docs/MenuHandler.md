@@ -1,49 +1,74 @@
+## **Menu Handler**
+
+File berisi kode yang merupakan bagian dari sistem manajemen data mahasiswa berbasis SQLite dengan bahasa pemrograman Dart. Fungsinya mencakup penambahan, pembaruan, penghapusan, dan analisis data mahasiswa dari database.
+
+---
+
+### 1. **Import Library**
+```dart
 import 'dart:io';
 import 'db_handler.dart';
+```
+- `dart:io` digunakan untuk operasi input-output, seperti membaca dan menulis data ke terminal.
+- `db_handler.dart` adalah file eksternal yang digunakan untuk mengelola database.
 
-// Fungsi untuk menambah data mahasiswa
+---
+
+### 2. **Fungsi `add()` - Menambahkan Data Mahasiswa**
+```dart
 void add() {
   print("===============================================");
   print("  Tambah Data\n");
+```
+- Mencetak header ke terminal untuk memberi tahu pengguna bahwa ini adalah proses penambahan data.
 
+```dart
   String npm, nama;
   double nilai;
+```
+- Mendeklarasikan variabel untuk menyimpan data mahasiswa (NPM, nama, dan nilai).
 
-  // Meminta input NPM dari pengguna
+#### **Memasukkan NPM**
+```dart
   while (true) {
     stdout.write("  Masukkan NPM: ");
     npm = stdin.readLineSync()!;
+```
+- Pengguna diminta memasukkan NPM, yang kemudian dibaca dari terminal.
 
-    // Validasi NPM harus berupa 10 digit angka
+```dart
     if (npm.length != 10 || int.tryParse(npm) == null) {
       print("  NPM harus berupa 10 digit angka");
       continue;
     }
-
     break;
   }
+```
+- Validasi:
+  - NPM harus memiliki panjang 10 karakter.
+  - NPM harus berupa angka (`int.tryParse(npm) == null` berarti bukan angka).
+- Jika tidak memenuhi syarat, pengguna diminta menginput ulang.
 
-  // Meminta input Nama dari pengguna
+#### **Memasukkan Nama**
+```dart
   while (true) {
     stdout.write("  Masukkan Nama: ");
     nama = stdin.readLineSync()!;
-
-    // Validasi Nama tidak boleh kosong
     if (nama.isEmpty) {
       print("  Nama tidak boleh kosong");
       continue;
     }
-
     break;
   }
+```
+- Memastikan nama tidak kosong.
 
-  // Meminta input Nilai dari pengguna
+#### **Memasukkan Nilai**
+```dart
   while (true) {
     try {
       stdout.write("  Masukkan Nilai: ");
       nilai = double.parse(stdin.readLineSync()!);
-      
-      // Validasi Nilai harus berupa angka antara 0-100
       if (nilai < 0 || nilai > 100) {
         throw Exception();
       }
@@ -51,48 +76,60 @@ void add() {
       print("  Nilai harus berupa angka 0-100");
       continue;
     }
-
     break;
   }
+```
+- Memvalidasi bahwa nilai harus berupa angka antara 0 hingga 100.
 
-  // Menyimpan data ke database
+#### **Menyimpan Data ke Database**
+```dart
   try {
     DatabaseHandler db = DatabaseHandler();
     db.open("mahasiswa.db");
-    db.createTable(); // Menambahkan tabel jika belum ada
+    db.createTable();
     db.insertData(npm, nama, nilai);
     db.close();
-
     print("  Data berhasil ditambahkan");
   } catch (e) {
-    print("  Terjadi kesalahan...\n"
-      "  Data gagal ditambahkan");
+    print("  Terjadi kesalahan...\n  Data gagal ditambahkan");
   }
 }
+```
+- Membuka koneksi ke database.
+- Memastikan tabel sudah ada (`db.createTable()`).
+- Menyimpan data (`db.insertData(npm, nama, nilai)`).
+- Menutup koneksi database.
+- Menampilkan pesan sukses atau error.
 
-// Fungsi untuk mengupdate data mahasiswa
+---
+
+### 3. **Fungsi `update()` - Memperbarui Data Mahasiswa**
+```dart
 void update() {
   print("===============================================");
   print("  Update Data\n");
+```
+- Mencetak header untuk proses update.
 
+#### **Memasukkan NPM yang Akan Diperbarui**
+```dart
   String npmTarget, npm, nama;
   double nilai;
 
-  // Meminta input NPM dari pengguna untuk data yang akan diupdate
   while (true) {
     stdout.write("  Masukkan NPM: ");
     npmTarget = stdin.readLineSync()!;
-
-    // Validasi NPM harus berupa 10 digit angka
     if (npmTarget.length != 10 || int.tryParse(npmTarget) == null) {
       print("  NPM harus berupa 10 digit angka");
       continue;
     }
-
     break;
   }
+```
+- Meminta input NPM yang ingin diperbarui dan memvalidasinya.
 
-  // Membuka koneksi ke database dan mengecek apakah data ada
+#### **Mengecek Keberadaan Data di Database**
+```dart
   DatabaseHandler db = DatabaseHandler();
   db.open("mahasiswa.db");
   if (!db.isDataExist(npmTarget)) {
@@ -100,42 +137,41 @@ void update() {
     print("  Data tidak ditemukan");
     return;
   }
+```
+- Jika NPM tidak ditemukan, proses update dibatalkan.
 
-  // Meminta input NPM baru dari pengguna
+#### **Memasukkan Data Baru**
+```dart
   while (true) {
     stdout.write("  Masukkan NPM (Baru): ");
     npm = stdin.readLineSync()!;
-
-    // Validasi NPM harus berupa 10 digit angka
     if (npm.length != 10 || int.tryParse(npm) == null) {
       print("  NPM harus berupa 10 digit angka");
       continue;
     }
-
     break;
   } 
+```
+- Meminta NPM baru.
 
-  // Meminta input Nama baru dari pengguna
+```dart
   while (true) {
     stdout.write("  Masukkan Nama (Baru): ");
     nama = stdin.readLineSync()!;
-
-    // Validasi Nama tidak boleh kosong
     if (nama.isEmpty) {
       print("  Nama tidak boleh kosong");
       continue;
     }
-
     break;
   }
+```
+- Meminta nama baru.
 
-  // Meminta input Nilai baru dari pengguna
+```dart
   while (true) {
     try {
       stdout.write("  Masukkan Nilai (Baru): ");
       nilai = double.parse(stdin.readLineSync()!);
-      
-      // Validasi Nilai harus berupa angka antara 0-100
       if (nilai < 0 || nilai > 100) {
         throw Exception();
       }
@@ -143,41 +179,51 @@ void update() {
       print("  Nilai harus berupa angka 0-100");
       continue;
     }
-
     break;
   }
+```
+- Meminta nilai baru.
 
-  // Mengupdate data di database
+#### **Memperbarui Data di Database**
+```dart
   try {
     db.updateData(npm, nama, nilai);
     print("  Data berhasil diupdate");
   } catch (_) {
-    print("  Terjadi kesalahan...\n" 
-    "Data gagal diupdate\n");
+    print("  Terjadi kesalahan...\nData gagal diupdate\n");
   }
 }
+```
+- Jika sukses, data diperbarui di database.
 
-// Fungsi untuk menghapus data mahasiswa
+---
+
+### 4. **Fungsi `delete()` - Menghapus Data Mahasiswa**
+```dart
 void delete() {
   print("===============================================");
   print("  Hapus Data\n");
 
   String npm;
-  // Meminta input NPM dari pengguna untuk data yang akan dihapus
+```
+- Mencetak header dan mendeklarasikan variabel.
+
+#### **Memasukkan NPM yang Akan Dihapus**
+```dart
   while (true) {
     stdout.write("  Masukkan NPM: ");
     npm = stdin.readLineSync()!;
-
-    // Validasi NPM harus berupa 10 digit angka
     if (npm.length != 10 || int.tryParse(npm) == null) {
       print("  NPM harus berupa 10 digit angka");
       continue;
     }
-
     break;
   }
+```
+- Memastikan NPM valid.
 
-  // Membuka koneksi ke database dan mengecek apakah data ada
+#### **Mengecek Keberadaan Data dan Menghapusnya**
+```dart
   DatabaseHandler db = DatabaseHandler();
   db.open("mahasiswa.db");
   if (!db.isDataExist(npm)) {
@@ -186,69 +232,67 @@ void delete() {
     return;
   }
 
-  // Menghapus data dari database
   try {
     db.deleteData(npm);
     print("  Data berhasil dihapus");
   } catch (_) {
-    print("  Terjadi kesalahan...\n" 
-    "Data gagal dihapus\n");
+    print("  Terjadi kesalahan...\nData gagal dihapus\n");
   }
 }
+```
+- Jika data ditemukan, akan dihapus.
 
-// Fungsi untuk menampilkan statistik data mahasiswa
+---
+
+### 5. **Fungsi `stats()` - Menampilkan Statistik Mahasiswa**
+```dart
 void stats() {
   print("===============================================");
   print("  Statistik Data\n");
 
-  // Membuka koneksi ke database
   DatabaseHandler db = DatabaseHandler();
   db.open("mahasiswa.db");
-
-  // Mengambil data mahasiswa dari database
   List<Map<String, dynamic>> data = db.getData();
-  
-  // Menghitung total mahasiswa
+```
+- Membuka database dan mengambil semua data mahasiswa.
+
+#### **Menghitung Statistik**
+```dart
   int totalMahasiswa = data.length;
-
-  // Menghitung total nilai dari semua mahasiswa
-  double totalNilai = 0;
-  for (var mahasiswa in data) {
-    totalNilai += mahasiswa['nilai'];
-  }
-  
-  // Menghitung rata-rata nilai
+  double totalNilai = data.fold(0, (sum, m) => sum + m['nilai']);
   double rataNilai = totalNilai / totalMahasiswa;
+```
+- Menghitung total mahasiswa, total nilai, dan rata-rata nilai.
 
-  // Mencari mahasiswa dengan nilai tertinggi
+```dart
   Map<String, dynamic> mahasiswaTertinggi = data[0];
-
   for (var mahasiswa in data) {
     if (mahasiswa['nilai'] > mahasiswaTertinggi['nilai']) {
       mahasiswaTertinggi = mahasiswa;
     }
   }
+```
+- Mencari mahasiswa dengan nilai tertinggi.
 
-  // Mencari mahasiswa dengan nilai terendah
+```dart
   Map<String, dynamic> mahasiswaTerendah = data[0];
-
   for (var mahasiswa in data) {
     if (mahasiswa['nilai'] < mahasiswaTerendah['nilai']) {
       mahasiswaTerendah = mahasiswa;
     }
   }
+```
+- Mencari mahasiswa dengan nilai terendah.
 
-  // Mencetak statistik data mahasiswa
+#### **Menampilkan Statistik**
+```dart
   print("  Total Mahasiswa: $totalMahasiswa");
-  print("  Nilai Tertinggi: ${mahasiswaTertinggi['nama']}"
-    "(${mahasiswaTertinggi['nilai'].toStringAsFixed(2)})");
-  print("  Nilai Terendah: ${mahasiswaTerendah['nama']} "
-    "(${mahasiswaTerendah['nilai'].toStringAsFixed(2)})");
+  print("  Nilai Tertinggi: ${mahasiswaTertinggi['nama']} (${mahasiswaTertinggi['nilai'].toStringAsFixed(2)})");
+  print("  Nilai Terendah: ${mahasiswaTerendah['nama']} (${mahasiswaTerendah['nilai'].toStringAsFixed(2)})");
   print("  Rata-rata Nilai: ${rataNilai.toStringAsFixed(2)}");
 
-  print("  Tekan enter untuk kembali...");
   stdin.readLineSync();
-
-  // Menutup koneksi ke database
   db.close();
 }
+```
+- Menampilkan hasil dan menutup koneksi database.

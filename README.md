@@ -43,8 +43,8 @@ dart run bin/main.dart
 
 ## Creator
 
-Nama: I Made Dipa Rama Artike
-NPM: 2415061001
-Kelas: PSTI-B
+Nama: I Made Dipa Rama Artike <br>
+NPM: 2415061001 <br>
+Kelas: PSTI-B <br>
 
 **Program Studi Teknik Informatika, Universitas Lampung**

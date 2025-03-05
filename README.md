@@ -17,7 +17,7 @@ Proyek ini adalah aplikasi command-line sederhana dengan file utama di folder `b
 
 1. Clone repository:
     ```sh
-    git clone <repository-url>
+    git clone https://github.com/lucas-backend/pengelola-nilai-mahasiswa
     ```
 2. Masuk ke direktori proyek:
     ```sh

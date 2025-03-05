@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'db_handler.dart';
 
+// Fungsi untuk menambah data mahasiswa
 void add() {
   print("===============================================");
   print("  Tambah Data\n");
@@ -8,10 +9,12 @@ void add() {
   String npm, nama;
   double nilai;
 
+  // Meminta input NPM dari pengguna
   while (true) {
     stdout.write("  Masukkan NPM: ");
     npm = stdin.readLineSync()!;
 
+    // Validasi NPM harus berupa 10 digit angka
     if (npm.length != 10 || int.tryParse(npm) == null) {
       print("  NPM harus berupa 10 digit angka");
       continue;
@@ -20,10 +23,12 @@ void add() {
     break;
   }
 
+  // Meminta input Nama dari pengguna
   while (true) {
     stdout.write("  Masukkan Nama: ");
     nama = stdin.readLineSync()!;
 
+    // Validasi Nama tidak boleh kosong
     if (nama.isEmpty) {
       print("  Nama tidak boleh kosong");
       continue;
@@ -32,11 +37,13 @@ void add() {
     break;
   }
 
+  // Meminta input Nilai dari pengguna
   while (true) {
     try {
       stdout.write("  Masukkan Nilai: ");
       nilai = double.parse(stdin.readLineSync()!);
       
+      // Validasi Nilai harus berupa angka antara 0-100
       if (nilai < 0 || nilai > 100) {
         throw Exception();
       }
@@ -48,10 +55,11 @@ void add() {
     break;
   }
 
+  // Menyimpan data ke database
   try {
     DatabaseHandler db = DatabaseHandler();
     db.open("mahasiswa.db");
-    db.createTable(); // Menambahkan table jika belum ada
+    db.createTable(); // Menambahkan tabel jika belum ada
     db.insertData(npm, nama, nilai);
     db.close();
 
@@ -60,9 +68,9 @@ void add() {
     print("  Terjadi kesalahan...\n"
       "  Data gagal ditambahkan");
   }
-
 }
 
+// Fungsi untuk mengupdate data mahasiswa
 void update() {
   print("===============================================");
   print("  Update Data\n");
@@ -70,10 +78,12 @@ void update() {
   String npmTarget, npm, nama;
   double nilai;
 
+  // Meminta input NPM dari pengguna untuk data yang akan diupdate
   while (true) {
     stdout.write("  Masukkan NPM: ");
     npmTarget = stdin.readLineSync()!;
 
+    // Validasi NPM harus berupa 10 digit angka
     if (npmTarget.length != 10 || int.tryParse(npmTarget) == null) {
       print("  NPM harus berupa 10 digit angka");
       continue;
@@ -82,6 +92,7 @@ void update() {
     break;
   }
 
+  // Membuka koneksi ke database dan mengecek apakah data ada
   DatabaseHandler db = DatabaseHandler();
   db.open("mahasiswa.db");
   if (!db.isDataExist(npmTarget)) {
@@ -90,10 +101,12 @@ void update() {
     return;
   }
 
+  // Meminta input NPM baru dari pengguna
   while (true) {
     stdout.write("  Masukkan NPM (Baru): ");
     npm = stdin.readLineSync()!;
 
+    // Validasi NPM harus berupa 10 digit angka
     if (npm.length != 10 || int.tryParse(npm) == null) {
       print("  NPM harus berupa 10 digit angka");
       continue;
@@ -102,10 +115,12 @@ void update() {
     break;
   } 
 
+  // Meminta input Nama baru dari pengguna
   while (true) {
     stdout.write("  Masukkan Nama (Baru): ");
     nama = stdin.readLineSync()!;
 
+    // Validasi Nama tidak boleh kosong
     if (nama.isEmpty) {
       print("  Nama tidak boleh kosong");
       continue;
@@ -114,11 +129,13 @@ void update() {
     break;
   }
 
+  // Meminta input Nilai baru dari pengguna
   while (true) {
     try {
       stdout.write("  Masukkan Nilai (Baru): ");
       nilai = double.parse(stdin.readLineSync()!);
       
+      // Validasi Nilai harus berupa angka antara 0-100
       if (nilai < 0 || nilai > 100) {
         throw Exception();
       }
@@ -130,6 +147,7 @@ void update() {
     break;
   }
 
+  // Mengupdate data di database
   try {
     db.updateData(npm, nama, nilai);
     print("  Data berhasil diupdate");
@@ -137,18 +155,20 @@ void update() {
     print("  Terjadi kesalahan...\n" 
     "Data gagal diupdate\n");
   }
-
 }
 
+// Fungsi untuk menghapus data mahasiswa
 void delete() {
   print("===============================================");
   print("  Hapus Data\n");
 
   String npm;
+  // Meminta input NPM dari pengguna untuk data yang akan dihapus
   while (true) {
     stdout.write("  Masukkan NPM: ");
     npm = stdin.readLineSync()!;
 
+    // Validasi NPM harus berupa 10 digit angka
     if (npm.length != 10 || int.tryParse(npm) == null) {
       print("  NPM harus berupa 10 digit angka");
       continue;
@@ -157,6 +177,7 @@ void delete() {
     break;
   }
 
+  // Membuka koneksi ke database dan mengecek apakah data ada
   DatabaseHandler db = DatabaseHandler();
   db.open("mahasiswa.db");
   if (!db.isDataExist(npm)) {
@@ -165,6 +186,7 @@ void delete() {
     return;
   }
 
+  // Menghapus data dari database
   try {
     db.deleteData(npm);
     print("  Data berhasil dihapus");
@@ -174,23 +196,27 @@ void delete() {
   }
 }
 
+// Fungsi untuk menampilkan statistik data mahasiswa
 void stats() {
   print("===============================================");
   print("  Statistik Data\n");
 
+  // Membuka koneksi ke database
   DatabaseHandler db = DatabaseHandler();
   db.open("mahasiswa.db");
 
+  // Mengambil data mahasiswa dari database
   List<Map<String, dynamic>> data = db.getData();
   
-  // Total Mahasiswa
+  // Menghitung total mahasiswa
   int totalMahasiswa = data.length;
 
-  // Rata-rata Nilai
+  // Menghitung total nilai dari semua mahasiswa
   double totalNilai = data.fold(0, (sum, m) => sum + m['nilai']);
+  // Menghitung rata-rata nilai
   double rataNilai = totalNilai / totalMahasiswa;
 
-  // Mahasiswa dengan Nilai Tertinggi
+  // Mencari mahasiswa dengan nilai tertinggi
   Map<String, dynamic> mahasiswaTertinggi = data[0];
 
   for (var mahasiswa in data) {
@@ -199,7 +225,7 @@ void stats() {
     }
   }
 
-  // Mahasiswa dengan Nilai Terendah
+  // Mencari mahasiswa dengan nilai terendah
   Map<String, dynamic> mahasiswaTerendah = data[0];
 
   for (var mahasiswa in data) {
@@ -208,6 +234,7 @@ void stats() {
     }
   }
 
+  // Mencetak statistik data mahasiswa
   print("  Total Mahasiswa: $totalMahasiswa");
   print("  Nilai Tertinggi: ${mahasiswaTertinggi['nama']}"
     "(${mahasiswaTertinggi['nilai'].toStringAsFixed(2)})");
@@ -218,5 +245,6 @@ void stats() {
   print("  Tekan enter untuk kembali...");
   stdin.readLineSync();
 
+  // Menutup koneksi ke database
   db.close();
 }

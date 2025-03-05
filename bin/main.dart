@@ -3,26 +3,31 @@ import "package:main/db_handler.dart";
 import "dart:io";
 
 void main(List<String> arguments) {
-
+  // Loop utama aplikasi
   while (true) {
+    // Membuat instance DatabaseHandler dan membuka database "mahasiswa.db"
     DatabaseHandler db = DatabaseHandler();
     db.open("mahasiswa.db");
-    db.createTable();
+    db.createTable(); // Membuat tabel jika belum ada
 
+    // Mengambil data mahasiswa dari database
     List<Map<String, dynamic>> data = db.getData();
 
+    // Mencetak header tabel
     print("===============================================");
     print("  NPM        | Nama                    | Nilai");
     print("===============================================");
     
+    // Mencetak setiap baris data mahasiswa
     for (var row in data) {
       String npm = row["npm"].toString().padRight(10);
       String nama = row["nama"].toString().padRight(23);
       String nilai = row["nilai"].toString().padRight(3);
       print("  $npm | $nama | $nilai");
     }
-    db.close();
+    db.close(); // Menutup koneksi database
 
+    // Mencetak menu pilihan
     print("===============================================");
     print("  1. Tambah Data");
     print("  2. Update Data");
@@ -33,19 +38,19 @@ void main(List<String> arguments) {
     stdout.write("  Pilih menu: ");
     var inputMenu = stdin.readLineSync();
 
+    // Menjalankan fungsi sesuai dengan pilihan menu
     if (inputMenu == "1") {
-      menu.add();
+      menu.add(); // Menambah data mahasiswa
     } else if (inputMenu == "2") {
-      menu.update();
+      menu.update(); // Mengupdate data mahasiswa
     } else if (inputMenu == "3") {
-      menu.delete();
+      menu.delete(); // Menghapus data mahasiswa
     } else if (inputMenu == "4") {
-      menu.stats();
+      menu.stats(); // Menampilkan statistik data mahasiswa
     } else if (inputMenu == "5") {
-      exit(0);
+      exit(0); // Keluar dari aplikasi
     } else {
       print("  Menu tidak tersedia");
     }
   }
-  
 }

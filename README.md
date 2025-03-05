@@ -40,6 +40,7 @@ Jalankan aplikasi:
 ```sh
 dart run bin/main.dart
 ```
+atau eksekusi program `pengelola-nilai-mahasiswa.exe`.
 
 ## Creator
 

@@ -1,6 +1,6 @@
 ## Deskripsi
 
-Proyek ini adalah aplikasi command-line sederhana dengan file utama di folder `bin/`, kode _library_ di `lib/`. Aplikasi ini berfungsi untuk mengelola data mahasiswa menggunakan bahasa pemrograman <span style="color:aqua;">Dart</span> dan database <span style="color: yellow;">SQLite</span>. Aplikasi ini memungkinkan Anda untuk menambah, memperbarui, menghapus, dan menampilkan catatan siswa.
+Proyek ini dibuat sebagai latihan dan tugas untuk mata kuliah **Struktur Data**. Proyek ini merupakan aplikasi command-line sederhana dengan file utama di folder `bin/`, kode _library_ di `lib/`. Aplikasi ini berfungsi untuk mengelola data mahasiswa menggunakan bahasa pemrograman <span style="color:aqua;">Dart</span> dan database <span style="color: yellow;">SQLite</span>. Aplikasi ini memungkinkan Anda untuk menambah, memperbarui, menghapus, dan menampilkan catatan siswa.  
 
 ## Fitur
 
@@ -39,3 +39,12 @@ Proyek ini adalah aplikasi command-line sederhana dengan file utama di folder `b
 Jalankan aplikasi:
 ```sh
 dart run bin/main.dart
+```
+
+## Creator
+
+Nama: I Made Dipa Rama Artike
+NPM: 2415061001
+Kelas: PSTI-B
+
+**Program Studi Teknik Informatika, Universitas Lampung**

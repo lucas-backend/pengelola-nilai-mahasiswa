@@ -9,7 +9,7 @@ Proyek ini dibuat sebagai latihan dan tugas untuk mata kuliah **Struktur Data**.
 - Menghapus data siswa
 - Menampilkan semua data siswa
 
-![Preview](https://raw.githubusercontent.com/main/program-preview.gif)
+![Preview](https://raw.githubusercontent.com/lucas-backend/pengelola-nilai-mahasiswa/main/program-preview.gif)
 
 ## Persyaratan
 

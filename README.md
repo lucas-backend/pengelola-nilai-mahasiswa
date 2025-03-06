@@ -9,6 +9,8 @@ Proyek ini dibuat sebagai latihan dan tugas untuk mata kuliah **Struktur Data**.
 - Menghapus data siswa
 - Menampilkan semua data siswa
 
+![Preview](https://github.com/lucas-backend/pengelola-nilai-mahasiswa/blob/main/program-preview.gif)
+
 ## Persyaratan
 
 - Dart SDK ^3.7.0

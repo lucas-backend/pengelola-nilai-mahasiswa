@@ -149,7 +149,7 @@ void update() {
 
   // Mengupdate data di database
   try {
-    db.updateData(npm, nama, nilai);
+    db.updateData(npmTarget, npm, nama, nilai);
     print("  Data berhasil diupdate");
   } catch (_) {
     print("  Terjadi kesalahan...\n" 

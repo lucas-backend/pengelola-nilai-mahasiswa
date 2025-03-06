@@ -42,10 +42,10 @@ class DatabaseHandler {
   }
 
   // Memperbarui data mahasiswa berdasarkan NPM
-  void updateData(String npm, String nama, double nilai) {
+  void updateData(String npmLama, String npm, String nama, double nilai) {
     _db.execute('''
-      UPDATE mahasiswa SET nama = ?, nilai = ? WHERE npm = ?
-    ''', [nama, nilai, npm]);
+      UPDATE mahasiswa SET nama = ?, nilai = ?, npm = ? WHERE npm = ?
+    ''', [nama, nilai, npm, npmLama]);
   }
 
   // Menghapus data mahasiswa berdasarkan NPM

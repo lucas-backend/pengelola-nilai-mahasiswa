@@ -1,4 +1,4 @@
-### **Database Handler (db_handler.dart)**  
+## **Database Handler (db_handler.dart)**  
 
 SQLite adalah salah satu sistem manajemen basis data (DBMS) yang ringan, cepat, dan tidak memerlukan server terpisah. Dalam pengembangan aplikasi menggunakan Dart, kita dapat menggunakan paket **sqlite3** untuk berinteraksi dengan database SQLite secara langsung.  
 

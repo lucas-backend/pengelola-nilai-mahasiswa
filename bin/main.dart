@@ -25,7 +25,7 @@ void main(List<String> arguments) {
     for (var row in data) {
       String npm = row["npm"].toString().padRight(10);
       String nama = row["nama"].toString().padRight(23);
-      String nilai = row["nilai"].toString().padRight(3);
+      String nilai = row["nilai"].toString();
       print("  $npm | $nama | $nilai");
     }
     db.close(); // Menutup koneksi database

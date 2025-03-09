@@ -12,11 +12,14 @@ void main(List<String> arguments) {
 
     // Mengambil data mahasiswa dari database
     List<Map<String, dynamic>> data = db.getData();
+    
+    // Mengurutkan data berdasarkan nilai
+    data.sort((a, b) => b["nilai"].compareTo(a["nilai"])); 
 
     // Mencetak header tabel
-    print("===============================================");
-    print("  NPM        | Nama                    | Nilai");
-    print("===============================================");
+    print("================================================");
+    print("  NPM        | Nama                    | Nilai ");
+    print("================================================");
     
     // Mencetak setiap baris data mahasiswa
     for (var row in data) {
@@ -28,13 +31,13 @@ void main(List<String> arguments) {
     db.close(); // Menutup koneksi database
 
     // Mencetak menu pilihan
-    print("===============================================");
+    print("================================================");
     print("  1. Tambah Data");
     print("  2. Update Data");
     print("  3. Hapus Data");
     print("  4. Statistik Data");
     print("  5. Keluar");
-    print("===============================================");
+    print("================================================");
     stdout.write("  Pilih menu: ");
     var inputMenu = stdin.readLineSync();
 

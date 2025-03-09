@@ -3,7 +3,7 @@ import 'db_handler.dart';
 
 // Fungsi untuk menambah data mahasiswa
 void add() {
-  print("===============================================");
+  print("================================================");
   print("  Tambah Data\n");
 
   String npm, nama;
@@ -72,7 +72,7 @@ void add() {
 
 // Fungsi untuk mengupdate data mahasiswa
 void update() {
-  print("===============================================");
+  print("================================================");
   print("  Update Data\n");
 
   String npmTarget, npm, nama;
@@ -159,7 +159,7 @@ void update() {
 
 // Fungsi untuk menghapus data mahasiswa
 void delete() {
-  print("===============================================");
+  print("================================================");
   print("  Hapus Data\n");
 
   String npm;
@@ -198,7 +198,7 @@ void delete() {
 
 // Fungsi untuk menampilkan statistik data mahasiswa
 void stats() {
-  print("===============================================");
+  print("================================================");
   print("  Statistik Data\n");
 
   // Membuka koneksi ke database

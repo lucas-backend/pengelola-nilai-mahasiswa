@@ -48,8 +48,11 @@ db.createTable(); // Membuat tabel jika belum ada
 ### **5. Mengambil Data dari Database**
 ```dart
 List<Map<String, dynamic>> data = db.getData();
+
+data.sort((a, b) => b["nilai"].compareTo(a["nilai"])); 
 ```
-- Memanggil `db.getData()` untuk mengambil semua data mahasiswa dari database dalam bentuk **list of maps**.
+
+- Memanggil `db.getData()` untuk mengambil semua data mahasiswa dari database dalam bentuk **list of maps**, lalu mengurutkannya dari nilai yang paling tinggi ke nilai yang paling rendah.
 
 ---
 
